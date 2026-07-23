@@ -99,3 +99,54 @@
     RESERVATION ||--|{ PAIEMENT : "est réglée par"
     PROMOTION |o--o{ RESERVATION : "s'applique à"
     EMPLOYE ||--o{ PLANNING : "est planifié sur"
+
+    %% Cardinalités
+    1. Client
+    Reservation
+    Côté Client : 0,N (Un client peut effectuer 0 ou plusieurs réservations)
+    Côté Reservation : 1 (Une réservation est faite par 1 et 1 seul client)
+    
+    2. Promotion 
+    Reservation
+    Côté Promotion : 0,N (Une promotion peut être appliquée à 0 ou plusieurs réservations)
+    Côté Reservation : 0,1 (Une réservation utilise 0 ou au maximum 1 promotion)
+    
+    3. Reservation 
+    Paiement
+    Côté Reservation : 0,1 (Une réservation a 0 paiement au départ, puis 1 une fois réglée)
+    Côté Paiement : 1 (Un paiement correspond à 1 seule réservation)
+    
+    4. Reservation
+    Session
+    Côté Session : 0,1 (Un créneau horaire/session est libre ou réservé 1 fois)
+    Côté Reservation : 1 (Une réservation correspond exactement à 1 session)
+    
+    5. Salle 
+    Session
+    Côté Salle : 0,N (Une salle génère 0 ou plusieurs sessions/créneaux horaires)
+    Côté Session : 1 (Une session a lieu dans 1 seule salle)
+    
+    6. Theme
+    Salle
+    Côté Theme : 1,N (Un thème peut équiper 1 ou plusieurs salles physiques)
+    Côté Salle : 1 (Une salle physique possède 1 seul thème à la fois)
+    
+    7. Theme 
+    Tarification
+    Côté Theme : 1,N (Un thème a 1 ou plusieurs tarifs selon la période/demande)
+    Côté Tarification : 1 (Une règle de tarif s'applique à 1 seul thème)
+    
+    8. Client 
+    Avis
+    Côté Client : 0,N (Un client peut poster 0 ou plusieurs avis)
+    Côté Avis : 1 (Un avis est rédigé par 1 seul client)
+    
+    9. Theme 
+    Avis
+    Côté Theme : 0,N (Un thème peut recevoir 0 ou plusieurs avis)
+    Côté Avis : 1 (Un avis concerne 1 seul thème)
+    
+    10. Employee 
+    Planning
+    Côté Employee : 0,N (Un employé a 0 ou plusieurs plages horaires enregistrées)
+    Côté Planning : 1 (Une plage horaire de planning appartient à 1 seul employé)
