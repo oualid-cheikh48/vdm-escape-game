@@ -1,0 +1,101 @@
+    CLIENT {
+        int id_client PK
+        string nom
+        string prenom
+        string email
+        string telephone
+        int points_fidelite
+    }
+
+    THEME {
+        int id_theme PK
+        string nom
+        string description
+        int duree
+        string difficulte
+    }
+
+    SALLE {
+        int id_salle PK
+        string nom_salle
+        string statut_maintenance
+        int id_theme FK
+    }
+
+    SESSION {
+        int id_session PK
+        date date_session
+        time heure_debut
+        string statut "Disponible, Réservée, Maintenance"
+        int id_salle FK
+    }
+
+    RESERVATION {
+        int id_reservation PK
+        int nb_participants
+        string statut "Confirmée, Annulée, Reportée"
+        string code_acces
+        int id_client FK
+        int id_session FK
+        int id_promotion FK
+    }
+
+    PAIEMENT {
+        int id_paiement PK
+        float montant
+        string mode_paiement "CB, PayPal"
+        datetime date_paiement
+        int id_reservation FK
+    }
+
+    AVIS {
+        int id_avis PK
+        int note
+        string commentaire
+        string photos_url
+        int id_client FK
+        int id_theme FK
+    }
+
+    TARIFICATION {
+        int id_tarif PK
+        float prix
+        date periode_debut
+        date periode_fin
+        string type_demande
+        int id_theme FK
+    }
+
+    PROMOTION {
+        int id_promotion PK
+        string code_promo
+        string type "Pourcentage, Fixe"
+        float valeur
+    }
+
+    EMPLOYE {
+        int id_employe PK
+        string nom
+        string prenom
+        string role "Acteur, Accueil..."
+    }
+
+    PLANNING {
+        int id_planning PK
+        date date_jour
+        time heure_debut
+        time heure_fin
+        int id_employe FK
+    }
+
+    %% Relations
+    CLIENT ||--o{ RESERVATION : "effectue"
+    CLIENT ||--o{ AVIS : "rédige"
+    THEME ||--|{ SALLE : "est installé dans"
+    THEME ||--o{ TARIFICATION : "est soumis à"
+    THEME ||--o{ AVIS : "reçoit"
+    SALLE ||--o{ SESSION : "propose"
+    SESSION ||--o| RESERVATION : "est verrouillée par"
+    RESERVATION ||--|{ PAIEMENT : "est réglée par"
+    PROMOTION |o--o{ RESERVATION : "s'applique à"
+    EMPLOYE ||--o{ PLANNING : "est planifié sur"
