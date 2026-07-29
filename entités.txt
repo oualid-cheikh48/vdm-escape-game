@@ -150,3 +150,6 @@
     Planning
     Côté Employee : 0,N (Un employé a 0 ou plusieurs plages horaires enregistrées)
     Côté Planning : 1 (Une plage horaire de planning appartient à 1 seul employé)
+
+    11. Animation_session
+    
