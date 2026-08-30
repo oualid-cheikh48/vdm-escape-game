@@ -9,6 +9,7 @@ import avisRoutes from "./routes/avis.routes";
 import tarificationRoutes from "./routes/tarification.routes";
 import promotionRoutes from "./routes/promotion.routes";
 import employeRoutes from "./routes/employe.routes";
+import planningRoutes from "./routes/planning.routes";
 
 const app = express();
 
@@ -24,5 +25,6 @@ app.use("/avis", avisRoutes);
 app.use("/tarifications", tarificationRoutes);
 app.use("/promotions", promotionRoutes);
 app.use("/employes", employeRoutes);
+app.use("/plannings", planningRoutes);
 
 export default app;
