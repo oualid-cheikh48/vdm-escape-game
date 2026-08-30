@@ -4,6 +4,7 @@ import clientRoutes from "./routes/client.routes";
 import themeRoutes from "./routes/theme.routes";
 import salleRoutes from "./routes/salle.routes";
 import sessionRoutes from "./routes/session.routes";
+import paiementRoutes from "./routes/paiement.routes";
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use("/clients", clientRoutes);
 app.use("/themes", themeRoutes);
 app.use("/salles", salleRoutes);
 app.use("/sessions", sessionRoutes);
+app.use("/paiements", paiementRoutes);
 
 export default app;
