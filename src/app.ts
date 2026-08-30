@@ -6,6 +6,7 @@ import salleRoutes from "./routes/salle.routes";
 import sessionRoutes from "./routes/session.routes";
 import paiementRoutes from "./routes/paiement.routes";
 import avisRoutes from "./routes/avis.routes";
+import tarificationRoutes from "./routes/tarification.routes";
 
 const app = express();
 
@@ -18,5 +19,6 @@ app.use("/salles", salleRoutes);
 app.use("/sessions", sessionRoutes);
 app.use("/paiements", paiementRoutes);
 app.use("/avis", avisRoutes);
+app.use("/tarifications", tarificationRoutes);
 
 export default app;
