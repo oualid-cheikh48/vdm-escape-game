@@ -1,0 +1,324 @@
+{
+  "info": {
+    "name": "VDM Escape Game API",
+    "description": "Collection de test pour l'API REST du système de réservation VDM Escape Game. Chaque dossier correspond à une entité (route → controller → service → repository).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" }
+  ],
+  "item": [
+    {
+      "name": "1. Theme",
+      "item": [
+        { "name": "GET Tous les thèmes", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/themes" } },
+        { "name": "GET Thème par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/themes/1" } },
+        {
+          "name": "POST Créer un thème",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Le Manoir Hanté\",\n  \"description\": \"Un manoir plein de mystères\",\n  \"duree\": 60,\n  \"difficulte\": \"Moyen\"\n}" },
+            "url": "{{baseUrl}}/themes"
+          }
+        },
+        {
+          "name": "PUT Modifier un thème",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Le Manoir Hanté\",\n  \"description\": \"Description mise à jour\",\n  \"duree\": 75,\n  \"difficulte\": \"Difficile\"\n}" },
+            "url": "{{baseUrl}}/themes/1"
+          }
+        },
+        { "name": "DELETE Supprimer un thème", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/themes/1" } }
+      ]
+    },
+    {
+      "name": "2. Client",
+      "item": [
+        { "name": "GET Tous les clients", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/clients" } },
+        { "name": "GET Client par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/clients/1" } },
+        {
+          "name": "POST Créer un client",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Dupont\",\n  \"prenom\": \"Marie\",\n  \"email\": \"marie.dupont@example.com\",\n  \"telephone\": \"0601020304\",\n  \"points_fidelite\": 0\n}" },
+            "url": "{{baseUrl}}/clients"
+          }
+        },
+        {
+          "name": "PUT Modifier un client",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Dupont\",\n  \"prenom\": \"Marie\",\n  \"email\": \"marie.dupont@example.com\",\n  \"telephone\": \"0601020304\",\n  \"points_fidelite\": 10\n}" },
+            "url": "{{baseUrl}}/clients/1"
+          }
+        },
+        { "name": "DELETE Supprimer un client", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/clients/1" } }
+      ]
+    },
+    {
+      "name": "3. Salle",
+      "item": [
+        { "name": "GET Toutes les salles", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/salles" } },
+        { "name": "GET Salle par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/salles/1" } },
+        {
+          "name": "POST Créer une salle",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom_salle\": \"Salle A\",\n  \"statut_maintenance\": \"OK\",\n  \"id_theme\": 1\n}" },
+            "url": "{{baseUrl}}/salles"
+          }
+        },
+        {
+          "name": "PUT Modifier une salle",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom_salle\": \"Salle A - rénovée\",\n  \"statut_maintenance\": \"OK\",\n  \"id_theme\": 1\n}" },
+            "url": "{{baseUrl}}/salles/1"
+          }
+        },
+        { "name": "DELETE Supprimer une salle", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/salles/1" } }
+      ]
+    },
+    {
+      "name": "4. Session",
+      "item": [
+        { "name": "GET Toutes les sessions", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/sessions" } },
+        { "name": "GET Session par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/sessions/1" } },
+        {
+          "name": "POST Créer une session",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"date_session\": \"2026-09-15\",\n  \"heure_debut\": \"14:00:00\",\n  \"statut\": \"Disponible\",\n  \"id_salle\": 1\n}" },
+            "url": "{{baseUrl}}/sessions"
+          }
+        },
+        {
+          "name": "PUT Modifier une session",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"date_session\": \"2026-09-15\",\n  \"heure_debut\": \"16:00:00\",\n  \"statut\": \"Réservée\",\n  \"id_salle\": 1\n}" },
+            "url": "{{baseUrl}}/sessions/1"
+          }
+        },
+        { "name": "DELETE Supprimer une session", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/sessions/1" } }
+      ]
+    },
+    {
+      "name": "5. Reservation",
+      "item": [
+        { "name": "GET Toutes les réservations", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/reservations" } },
+        { "name": "GET Réservation par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/reservations/1" } },
+        {
+          "name": "POST Créer une réservation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nb_participants\": 4,\n  \"statut\": \"Confirmée\",\n  \"code_acces\": \"ABCD1234\",\n  \"id_client\": 1,\n  \"id_session\": 1,\n  \"id_promotion\": null\n}" },
+            "url": "{{baseUrl}}/reservations"
+          }
+        },
+        {
+          "name": "PUT Modifier une réservation",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nb_participants\": 6,\n  \"statut\": \"Confirmée\",\n  \"code_acces\": \"ABCD1234\",\n  \"id_client\": 1,\n  \"id_session\": 1,\n  \"id_promotion\": null\n}" },
+            "url": "{{baseUrl}}/reservations/1"
+          }
+        },
+        { "name": "DELETE Supprimer une réservation", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/reservations/1" } }
+      ]
+    },
+    {
+      "name": "6. Paiement",
+      "item": [
+        { "name": "GET Tous les paiements", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/paiements" } },
+        { "name": "GET Paiement par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/paiements/1" } },
+        {
+          "name": "POST Créer un paiement",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"montant\": 120.50,\n  \"mode_paiement\": \"CB\",\n  \"date_paiement\": \"2026-08-30T10:00:00\",\n  \"id_reservation\": 1\n}" },
+            "url": "{{baseUrl}}/paiements"
+          }
+        },
+        {
+          "name": "PUT Modifier un paiement",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"montant\": 150.00,\n  \"mode_paiement\": \"PayPal\",\n  \"date_paiement\": \"2026-08-30T10:00:00\",\n  \"id_reservation\": 1\n}" },
+            "url": "{{baseUrl}}/paiements/1"
+          }
+        },
+        { "name": "DELETE Supprimer un paiement", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/paiements/1" } }
+      ]
+    },
+    {
+      "name": "7. Avis",
+      "item": [
+        { "name": "GET Tous les avis", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/avis" } },
+        { "name": "GET Avis par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/avis/1" } },
+        {
+          "name": "POST Créer un avis",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"note\": 5,\n  \"commentaire\": \"Super expérience !\",\n  \"photo_url\": \"https://example.com/photo.jpg\",\n  \"id_client\": 1,\n  \"id_theme\": 1\n}" },
+            "url": "{{baseUrl}}/avis"
+          }
+        },
+        {
+          "name": "PUT Modifier un avis",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"note\": 4,\n  \"commentaire\": \"Très bien, à refaire\",\n  \"photo_url\": \"https://example.com/photo.jpg\",\n  \"id_client\": 1,\n  \"id_theme\": 1\n}" },
+            "url": "{{baseUrl}}/avis/1"
+          }
+        },
+        { "name": "DELETE Supprimer un avis", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/avis/1" } }
+      ]
+    },
+    {
+      "name": "8. Tarification",
+      "item": [
+        { "name": "GET Toutes les tarifications", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/tarifications" } },
+        { "name": "GET Tarification par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/tarifications/1" } },
+        {
+          "name": "POST Créer une tarification",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"prix\": 29.90,\n  \"periode_debut\": \"2026-01-01\",\n  \"periode_fin\": \"2026-12-31\",\n  \"type_demande\": \"Standard\",\n  \"id_theme\": 1\n}" },
+            "url": "{{baseUrl}}/tarifications"
+          }
+        },
+        {
+          "name": "PUT Modifier une tarification",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"prix\": 34.90,\n  \"periode_debut\": \"2026-01-01\",\n  \"periode_fin\": \"2026-12-31\",\n  \"type_demande\": \"Weekend\",\n  \"id_theme\": 1\n}" },
+            "url": "{{baseUrl}}/tarifications/1"
+          }
+        },
+        { "name": "DELETE Supprimer une tarification", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/tarifications/1" } }
+      ]
+    },
+    {
+      "name": "9. Promotion",
+      "item": [
+        { "name": "GET Toutes les promotions", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/promotions" } },
+        { "name": "GET Promotion par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/promotions/1" } },
+        {
+          "name": "POST Créer une promotion",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"code_promo\": \"ETE2026\",\n  \"type\": \"Pourcentage\",\n  \"valeur\": 15\n}" },
+            "url": "{{baseUrl}}/promotions"
+          }
+        },
+        {
+          "name": "PUT Modifier une promotion",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"code_promo\": \"ETE2026\",\n  \"type\": \"Fixe\",\n  \"valeur\": 10\n}" },
+            "url": "{{baseUrl}}/promotions/1"
+          }
+        },
+        { "name": "DELETE Supprimer une promotion", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/promotions/1" } }
+      ]
+    },
+    {
+      "name": "10. Employe",
+      "item": [
+        { "name": "GET Tous les employés", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/employes" } },
+        { "name": "GET Employé par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/employes/1" } },
+        {
+          "name": "POST Créer un employé",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Martin\",\n  \"prenom\": \"Lucas\",\n  \"role\": \"Accueil\"\n}" },
+            "url": "{{baseUrl}}/employes"
+          }
+        },
+        {
+          "name": "PUT Modifier un employé",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nom\": \"Martin\",\n  \"prenom\": \"Lucas\",\n  \"role\": \"Acteur\"\n}" },
+            "url": "{{baseUrl}}/employes/1"
+          }
+        },
+        { "name": "DELETE Supprimer un employé", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/employes/1" } }
+      ]
+    },
+    {
+      "name": "11. Planning",
+      "item": [
+        { "name": "GET Tous les plannings", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/plannings" } },
+        { "name": "GET Planning par id", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/plannings/1" } },
+        {
+          "name": "POST Créer un planning",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"date_jour\": \"2026-09-15\",\n  \"heure_debut\": \"09:00:00\",\n  \"heure_fin\": \"17:00:00\",\n  \"id_employe\": 1,\n  \"id_salle\": 1\n}" },
+            "url": "{{baseUrl}}/plannings"
+          }
+        },
+        {
+          "name": "PUT Modifier un planning",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"date_jour\": \"2026-09-15\",\n  \"heure_debut\": \"10:00:00\",\n  \"heure_fin\": \"18:00:00\",\n  \"id_employe\": 1,\n  \"id_salle\": 1\n}" },
+            "url": "{{baseUrl}}/plannings/1"
+          }
+        },
+        { "name": "DELETE Supprimer un planning", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/plannings/1" } }
+      ]
+    },
+    {
+      "name": "12. Animation_session",
+      "item": [
+        { "name": "GET Toutes les affectations", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/animations-session" } },
+        { "name": "GET Affectation par idSession/idEmploye", "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/animations-session/1/1" } },
+        {
+          "name": "POST Créer une affectation",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"id_session\": 1,\n  \"id_employe\": 1,\n  \"role_session\": \"Game Master\"\n}" },
+            "url": "{{baseUrl}}/animations-session"
+          }
+        },
+        {
+          "name": "PUT Modifier une affectation",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"role_session\": \"Comédien\"\n}" },
+            "url": "{{baseUrl}}/animations-session/1/1"
+          }
+        },
+        { "name": "DELETE Supprimer une affectation", "request": { "method": "DELETE", "header": [], "url": "{{baseUrl}}/animations-session/1/1" } }
+      ]
+    }
+  ]
+}
