@@ -1,0 +1,165 @@
+CLIENT {
+    int id_client PK
+    string nom
+    string prenom
+    string email
+    string telephone
+    int points_fidelite
+}
+
+THEME {
+    int id_theme PK
+    string nom
+    string description
+    int duree
+    string difficulte
+}
+
+SALLE {
+    int id_salle PK
+    string nom_salle
+    string statut_maintenance
+    int id_theme FK
+}
+
+SESSION {
+    int id_session PK
+    date date_session
+    time heure_debut
+    string statut "Disponible, Réservée, Maintenance"
+    int id_salle FK
+}
+
+RESERVATION {
+    int id_reservation PK
+    int nb_participants
+    string statut "Confirmée, Annulée, Reportée"
+    string code_acces
+    int id_client FK
+    int id_session FK
+    int id_promotion FK
+}
+
+PAIEMENT {
+    int id_paiement PK
+    float montant
+    string mode_paiement "CB, PayPal, Espèces"
+    datetime date_paiement
+    int id_reservation FK
+}
+
+AVIS {
+    int id_avis PK
+    int note
+    string commentaire
+    string photo_url
+    int id_client FK
+    int id_theme FK
+}
+
+TARIFICATION {
+    int id_tarif PK
+    float prix
+    date periode_debut
+    date periode_fin
+    string type_demande
+    int id_theme FK
+}
+
+PROMOTION {
+    int id_promotion PK
+    string code_promo
+    string type "Pourcentage, Fixe"
+    float valeur
+}
+
+EMPLOYE {
+    int id_employe PK
+    string nom
+    string prenom
+    string role "Accueil, Acteur..."
+}
+
+PLANNING {
+    int id_planning PK
+    date date_jour
+    time heure_debut
+    time heure_fin
+    int id_employe FK
+    int id_salle FK
+}
+
+ANIMATION_SESSION {
+    int id_session FK
+    int id_employe FK
+    string role_session "Game Master, Comédien, Aide Technique"
+}
+
+%% Relations
+CLIENT ||--o{ RESERVATION : "effectue"
+CLIENT ||--o{ AVIS : "rédige"
+PROMOTION |o--o{ RESERVATION : "applique"
+RESERVATION ||--o| PAIEMENT : "génère"
+RESERVATION }o--|| SESSION : "concerne"
+THEME ||--o{ AVIS : "reçoit"
+THEME ||--|{ TARIFICATION : "détermine"
+THEME ||--|{ SALLE : "équipe"
+SALLE ||--o{ SESSION : "propose"
+SALLE ||--o{ PLANNING : "accueille"
+EMPLOYE ||--o{ PLANNING : "suit"
+SESSION ||--o{ ANIMATION_SESSION : "nécessite"
+EMPLOYE ||--o{ ANIMATION_SESSION : "nécessite"
+
+%% Cardinalités
+
+1. Client / Reservation
+Côté Client : 1 (Une réservation est effectuée par 1 et 1 seul client)
+Côté Reservation : 0,N (Un client peut effectuer 0 ou plusieurs réservations)
+
+2. Promotion / Reservation
+Côté Promotion : 0,1 (Une réservation utilise 0 ou au maximum 1 promotion)
+Côté Reservation : 0,N (Une promotion peut être appliquée à 0 ou plusieurs réservations)
+
+3. Reservation / Paiement
+Côté Reservation : 1 (Un paiement correspond à 1 seule réservation)
+Côté Paiement : 0,1 (Une réservation a 0 paiement au départ, puis 1 une fois réglée)
+
+4. Reservation / Session
+Côté Session : 0,1 (Une session est réservée 0 ou 1 fois)
+Côté Reservation : 1 (Une réservation concerne 1 seule session)
+
+5. Salle / Session
+Côté Salle : 1 (Une session a lieu dans 1 seule salle)
+Côté Session : 0,N (Une salle propose 0 ou plusieurs sessions)
+
+6. Theme / Salle
+Côté Theme : 1 (Une salle possède 1 seul thème)
+Côté Salle : 1,N (Un thème équipe 1 ou plusieurs salles physiques)
+
+7. Theme / Tarification
+Côté Theme : 1 (Une règle tarifaire s'applique à 1 seul thème)
+Côté Tarification : 1,N (Un thème détermine 1 ou plusieurs tarifs selon la période/demande)
+
+8. Client / Avis
+Côté Client : 1 (Un avis est rédigé par 1 seul client)
+Côté Avis : 0,N (Un client peut poster 0 ou plusieurs avis)
+
+9. Theme / Avis
+Côté Theme : 1 (Un avis concerne 1 seul thème)
+Côté Avis : 0,N (Un thème peut recevoir 0 ou plusieurs avis)
+
+10. Employee / Planning
+Côté Employee : 1 (Une plage de planning appartient à 1 seul employé)
+Côté Planning : 0,N (Un employé suit 0 ou plusieurs plages de planning)
+
+11. Salle / Planning
+Côté Salle : 1 (Une plage de planning concerne 1 seule salle)
+Côté Planning : 0,N (Une salle accueille 0 ou plusieurs plages de planning)
+
+12. Session / Animation_session
+Côté Session : 1 (Une animation de session est liée à 1 seule session)
+Côté Animation_session : 0,N (Une session nécessite 0 ou plusieurs affectations d'employés)
+
+13. Employee / Animation_session
+Côté Employee : 1 (Une animation de session est attribuée à 1 seul employé)
+Côté Animation_session : 0,N (Un employé peut nécessiter 0 ou plusieurs affectations de session)
