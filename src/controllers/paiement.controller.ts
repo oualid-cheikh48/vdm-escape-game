@@ -17,8 +17,12 @@ export async function getById(req: Request, res: Response): Promise<void> {
 }
 
 export async function create(req: Request, res: Response): Promise<void> {
+  if (!req.user) {
+    res.status(401).json({ message: "Authentification requise" });
+    return;
+  }
   try {
-    const paiement = await paiementService.createPaiement(req.body);
+    const paiement = await paiementService.createPaiement(req.body, req.user);
     res.status(201).json(paiement);
   } catch (error) {
     res.status(400).json({ message: (error as Error).message });
