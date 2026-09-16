@@ -48,3 +48,16 @@ export async function remove(req: Request, res: Response): Promise<void> {
   }
   res.status(204).send();
 }
+
+export async function changePassword(
+  req: Request,
+  res: Response
+): Promise<void> {
+  const id = Number(req.params.id);
+  try {
+    await clientService.changePassword(id, req.body.password);
+    res.status(204).send();
+  } catch (error) {
+    res.status(400).json({ message: (error as Error).message });
+  }
+}
