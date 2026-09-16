@@ -15,6 +15,7 @@ CREATE TABLE client (
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
     telephone VARCHAR(20),
     points_fidelite INTEGER NOT NULL DEFAULT 0
 );
@@ -30,6 +31,8 @@ CREATE TABLE employe (
     id_employe SERIAL PRIMARY KEY,
     nom VARCHAR(255) NOT NULL,
     prenom VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
 
