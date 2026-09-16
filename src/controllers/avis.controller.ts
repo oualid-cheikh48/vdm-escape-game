@@ -18,7 +18,11 @@ export async function getById(req: Request, res: Response): Promise<void> {
 
 export async function create(req: Request, res: Response): Promise<void> {
   try {
-    const avis = await avisService.createAvis(req.body);
+    const body = { ...req.body };
+    if (req.user?.type === "client") {
+      body.id_client = req.user.id;
+    }
+    const avis = await avisService.createAvis(body);
     res.status(201).json(avis);
   } catch (error) {
     res.status(400).json({ message: (error as Error).message });
